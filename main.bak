@@ -3,8 +3,8 @@
 #define MAX 8
 
 void push(int [], int&, int, int);
-void pop(int[], int&, int);
-bool fullStack(int[], int, int);
+void pop(int[], int, int);
+bool fullStack(int[], int);
 bool emptyStack(int[], int);
 
 int main() {
@@ -17,7 +17,7 @@ int main() {
         cout << "> Insertar Datos (1)" << endl;
         cout << "> Eliminar Datos (2)" << endl;
         cout << "> Cerrar Programa (3)" << endl;
-        cout << "> Seleccionar: ";
+        cout << "> Seleccionar: "
 
         cin >> option;
         switch(option) {
