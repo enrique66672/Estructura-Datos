@@ -4,10 +4,12 @@
 
 void push(int [], int&, int, int);
 void pop(int[], int&, int);
-void printStack(int [], int&); 
+void printStack(int [], int&);
 void showStatus(int&, int);
+void removeDuplicate (int [], int&);
 bool fullStack(int[], int, int);
 bool emptyStack(int[], int);
+
 
 int main() {
 
@@ -16,17 +18,17 @@ int main() {
     do{
         cout << ">>>>  PILAS   <<<<" << endl << endl << endl;
         cout << "Estado de la pila: "; showStatus(top, MAX);
-        
+
         cout << endl << endl;
         cout << "> Insertar Datos (1)" << endl;
         cout << "> Eliminar Datos (2)" << endl;
-        cout << "> Eliminar Datos Repetidos (3)"
+        cout << "> Eliminar Datos Repetidos (3)" << endl;
         cout << "> Cerrar Programa (4)" << endl <<endl;
         cout << "> Seleccionar: "; cin >> option;
 
-        
 
-        
+
+
         switch(option) {
             case 1:
                 cout << "\nQue dato desea insertar?"; cin >> fact;
@@ -38,7 +40,8 @@ int main() {
             break;
 
             case 3:
-        			//INSERTAR FUNCION
+        			removeDuplicate (stack, top);
+                    
             break;
         }
 
@@ -115,4 +118,27 @@ void showStatus(int &top, int max) {
         cout << "Pila llena";
     }
 
+}
+
+void removeDuplicate (int stack[], int &top) {
+    int stackTwo[MAX];
+    int aux = -1;
+
+    for (int i = top; i >= 0; i--) {
+        if (stack[i] != stack[i-1]){
+            stackTwo[aux + 1] = stack[i];
+            aux ++;
+        }
+
+    }
+
+    top = 0;
+    int stackThree[MAX];
+    while(top <= aux){
+        stackThree[top] = stackTwo[aux - top];
+        top++;
+        
+    }
+
+    printStack(stackThree, top);
 }
