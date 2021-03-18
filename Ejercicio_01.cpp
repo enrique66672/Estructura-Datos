@@ -1,3 +1,4 @@
+//Created by: Roque Ramos Miguel Enrique and Molina Garcia Juan Gerardo
 #include<iostream>
 #include<conio.h>
 #define MAX 8

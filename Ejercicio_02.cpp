@@ -1,3 +1,5 @@
+//Created by: Roque Ramos Miguel Enrique and Molina Garcia Juan Gerardo
+
 #include<iostream>
 #include<conio.h>
 #define MAX 8
@@ -27,8 +29,11 @@ void printStack(int stack[], int &top) {
 
 //FULL STACK
 bool fullStack(int top) {
-	if (top == (MAX - 1)) return true;
-	else return false; 
+	if (top == (MAX - 1)) {
+        return true;
+    } else {
+        return false;
+    }  
 }
 
 //INSERT
@@ -70,42 +75,18 @@ void pop(int stack[], int&top, int data) {
 
 //REMOVE DUPLICATED
 void removeDuplicate(int stack[], int &top) {
-    bool flag, flagTwo;
-    int i = 0, aux = -1;;
-    int stackTwo[MAX];
+    bool flag;
 
     flag = emptyStack(top);
 
     if(flag) {
-        cout << "Pila Vacia - No se puede hacer esta operacion" << endl;
+        cout << "\nPila Vacia - No se puede hacer esta operacion" << endl << endl;
     } else {
-        //Comprobar si hay elementos repetidos
-        do{
-            if(stack[i] == stack[i + 1]) {
-                flagTwo = true; //Porque si hay elementos repetidos 
-            } 
-            i++;
-
-        } while(i != top);
-
-        if(flagTwo == false) {
-            //Significa que no encontro elementos iguales
-            cout << "No hay elementos repetidos" << endl;
-        } 
-            
-        for (int i = top; i >= 0; i--) {
-            if (stack[i] != stack[i-1]) {
-                stackTwo[aux + 1] = stack[i];
-                aux ++;
-            }
+        if(stack[top] == stack[top-1]) {
+        top = top -2;
+        }else {
+            top--;
         }
-        top = 0;
-        //int stackThree[MAX];
-        while(top <= aux) {
-            stack[top] = stackTwo[aux - top];
-            top++;
-        }
-        top--;
         printStack(stack, top);
         cout << endl << endl; 
     }
