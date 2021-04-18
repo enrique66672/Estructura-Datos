@@ -10,6 +10,17 @@ bool isEmpty(int&front, int&final) {
     }
 }
 
+int getElements(char queue[], int&front, int&final) {
+    if (isEmpty(front, final)) {
+        return 0;
+    }
+    if (front < final) {
+        return (final - front + 1);
+    }else {
+        return ((MAX - front) + (final + 1));
+    }
+}
+
 bool isFull(char queue[], int&front, int&final) {
     if (getElements(queue, front, final) == MAX) {
         return true;
@@ -37,17 +48,6 @@ void printQueue(char queue[], int&front, int&final) {
                 }
             }
         }
-    }
-}
-
-int getElements(char queue[], int&front, int&final) {
-    if (isEmpty(front, final)) {
-        return 0;
-    }
-    if (front < final) {
-        return (final - front + 1);
-    }else {
-        return ((MAX - front) + (final + 1));
     }
 }
 
@@ -79,7 +79,9 @@ void popQueue(char queue[], int&front, int&final) {
             cout<<"elementos: "<<getElements(queue, front, final)<<endl;
             front = -1;
             final = -1;
-        }else {
+        }else if (front == MAX) {
+            front = 0;
+        } else {
             front++;
         }
     }
@@ -98,7 +100,7 @@ void statusQueue(char queue[], int&front, int&final) {
 
 int main() {
     char queue[MAX], data;
-    int option, front = 0, final = 0;
+    int option, front = -1, final = -1;
 
     do {
         cout << "Estatus de la cola: " << endl;
