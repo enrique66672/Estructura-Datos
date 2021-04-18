@@ -2,104 +2,98 @@
 #include <conio.h>
 #define MAX 8
 
-bool fullQueue(int &final, int& front) {
-    if(((final == MAX) && (front == 0)) || ((final+1) == front)) {
+bool isEmpty(int&front, int&final) {
+    if (final == -1) {
         return true;
-    } else {
+    }else {
         return false;
     }
 }
 
-bool emptyQueue( int &front, int &final ) {
-
-    /*
-    inicio = 1
-    final = 0
-
-    0 1 2 3 4 5 
-    x b c d e f
-    */ 
-   if (front == final){
-       return true;
-   } else {
-       return false;
-   }
-   
-}
-
-int countElements( char queue[], int &front, int &final ) {
-    int elements = 0;
-    if ((front < final)) {
-        for ( int i = front; i < final; i++ ) {
-            elements++;
-        }
-    } else {
-        for ( int i = 0; i < MAX; i++ ) {
-            if ( queue[i] < final ) {
-                elements++;
-            }
-            if (queue[i] >= front ) {
-                elements++;
-            }
-        }
-    } 
-    return elements;
-}
-
-void statusQueue( char queue[], int& final, int& front ) {
-    if (  final == front ) {
-        cout << "Cola Vacio" << endl << endl;
-    } else if ( (countElements(queue, front, final) < MAX) && (countElements(queue, front, final) != 0) ) {
-        cout << "Cola Neutro" << endl << endl;
-    } else if ( ((final == MAX) && (front == 0)) || ( (final + 1) == front) )  {
-        cout << "Cola Llena" << endl << endl;
+bool isFull(char queue[], int&front, int&final) {
+    if (getElements(queue, front, final) == MAX) {
+        return true;
+    }else {
+        return false;
     }
 }
 
-void printQueue( char queue[], int &front, int &final ) {
-    if ((front < final)) {
-        for ( int i = front; i < final; i++ ) {
-            cout << " | " << queue[i] << " | ";
-        }
-    } else {
-        for ( int i = 0; i < MAX; i++ ) {
-            if ( queue[i] < final ) {
+void printQueue(char queue[], int&front, int&final) {
+    if (!isEmpty(front, final)) {
+        if (front <= final) {
+            for (int i = front; i <= final; ++i) {
                 cout << " | " << queue[i] << " | ";
             }
-            if ( (queue[i] > final) && (queue[i] < front) ) {
-                cout << " | " << " " << " | ";
-            }
-            if (queue[i] >= front ) {
-                cout << " | " << queue[i] << " | ";
+        }else {
+            for ( int i = 0; i < MAX; i++ ) {
+                if ( i <= final ) {
+                    cout << " | " << queue[i] << " | ";
+                }
+                if ( (i > final) && (i < front) ) {
+                    cout << " | " << " " << " | ";
+                }
+                if (i >= front ) {
+                    cout << " | " << queue[i] << " | ";
+                }
             }
         }
     }
 }
 
-void pushQueue( char queue[], char data, int &front, int &final) {
-    if ( fullQueue(final, front) ){
-        cout << "Desbordamiento en su cola" << endl;
-    } else if ( final == MAX ) {
-        final = 0;
-
-        queue[final] = data;
-        final++;
-    } else {
-        queue[final] = data;
-        final++;
+int getElements(char queue[], int&front, int&final) {
+    if (isEmpty(front, final)) {
+        return 0;
     }
-
-    printQueue( queue, front, final );
-    cout << endl << endl;
+    if (front < final) {
+        return (final - front + 1);
+    }else {
+        return ((MAX - front) + (final + 1));
+    }
 }
 
-void popQueue( char queue[], int& front, int& final ) { //AQUI XDXDXD
-    if ( emptyQueue(front, final) ) {
-        cout << "Subdesbordamiento en su cola" << endl;
-    } else {
-        front++;
+void pushQueue(char queue[], char& data, int&front, int&final) {
+    if (!isFull(queue, front, final)) {
+        if (isEmpty(front, final)) {
+            front++;
+        }
+
+        if (final == (MAX - 1) || final == -1) {
+            final = 0;
+        }else {
+            final++;            
+        }
+        queue[final] = data;
+        /* Mostrar mensajes de datos*/
+    }else {
+        cout<<"Desbordamiento en la cola"<<endl;
     }
     printQueue(queue, front, final);
+}
+
+void popQueue(char queue[], int&front, int&final) {
+    if (isEmpty(front, final)) {
+        cout<<"Subdesbordamiento en la cola"<<endl;
+    }else{
+        // Mostrar elemento borrado
+        if (front == final) {
+            cout<<"elementos: "<<getElements(queue, front, final)<<endl;
+            front = -1;
+            final = -1;
+        }else {
+            front++;
+        }
+    }
+    printQueue(queue, front, final);
+}
+
+void statusQueue(char queue[], int&front, int&final) {
+    if (isEmpty(front, final)) {
+        cout<<"Vacia"<<endl;
+    }else if (isFull(queue, front, final)) {
+        cout<<"Llena"<<endl;
+    }else{
+        cout<<"Neutra"<<endl;
+    }
 }
 
 int main() {
