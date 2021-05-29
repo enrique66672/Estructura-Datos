@@ -3,6 +3,8 @@
 #include <conio.h>
 #include <stdlib.h>
 
+using namespace std;
+
 struct Nodo {
     int data;
     Nodo *next;
