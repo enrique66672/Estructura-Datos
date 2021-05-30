@@ -64,12 +64,12 @@ void insertNode (Node*&tree, int value, int&iNodesT) {
         iNodesT++;
     }
     else {
-        if (value >= tree->data) {
+        if (value >= tree->data) 
             insertNode(tree->right, value, iNodesT);
-        }
-        else {
+        
+        else 
             insertNode(tree->left, value, iNodesT);
-        }
+        
     } 
 }
 
